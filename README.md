@@ -1,6 +1,6 @@
-# What is MetaStates
+# What is ThreatMAMBA
 
-MetaStates is an end-to-end explainable cyber threat attribution model, which can provide attackers' behavior patterns and identifications
+ThreatMAMBA is an end-to-end HGNN cyber threat attribution model, which can provide attackers' TTPs and identification
 
 # What we have here
 
