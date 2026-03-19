@@ -10,3 +10,4 @@ In this library, we will provide the datasets we used.
 - CTI2Attacker: this dataset includes the original Cyber Threat Intelligence Reports and their belonging attackers
 - cleaned_CTI2Attacker: remove non-CTI documents
 - CTI2Attacker_TTP: extract all TTPs in cleaned_CTI2Attacker
+- TTP_Group_Contribution: the importance of TTPs in identifying Attackers extracted by ThreatMAMBA
