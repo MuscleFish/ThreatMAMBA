@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>饼图节点关系图</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        #chart {
+            width: 100%;
+            height: 1000px;
+            border-radius: 10px;
+            background: #fff;
+        }
+
+        .info {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e3f2fd;
+            border-radius: 8px;
+            color: #1976d2;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎯 饼图节点关系图</h1>
+        <div id="chart"></div>
+        <!-- <div class="info">
+            <strong>💡 说明：</strong>
+            彩色圆形节点为饼图节点，灰色圆形为普通节点。支持拖拽、缩放、点击查看详情。
+        </div> -->
+    </div>
+
+    <script>
+        const chart = echarts.init(document.getElementById('chart'));
+
+        const ttp_state_data = JSON.parse(
+            '{"nodes": [{"id": "document", "name": "document", "symbolSize": 30, "isPie": false, "label": {"show": true}, "symbol": "triangle", "itemStyle": {"color": "#ee6666"}}, {"id": "TA505", "name": "TA505", "symbolSize": 12.282812850815644, "isPie": false, "label": {"show": true}}, {"id": "TwoForOne", "name": "TwoForOne", "symbolSize": 13.271528627743992, "isPie": false, "label": {"show": true}}, {"id": "APT1", "name": "APT1", "symbolSize": 29.162312564462177, "isPie": false, "label": {"show": true}}, {"id": "state-1", "name": "state-1", "symbolSize": 155.6655, "isPie": true, "pieData": [{"value": 0.1761, "name": "T1592"}, {"value": 0.1618, "name": "T1585"}, {"value": 0.1472, "name": "T1590"}, {"value": 0.1455, "name": "T1589"}, {"value": 0.1321, "name": "T1110"}, {"value": 0.0638, "name": "T1566"}, {"value": 0.0637, "name": "T1593"}, {"value": 0.0565, "name": "T1591"}, {"value": 0.0534, "name": "T1594"}], "label": {"show": false}}, {"id": "state-4", "name": "state-4", "symbolSize": 149.2672, "isPie": true, "pieData": [{"value": 0.1803, "name": "T1595"}, {"value": 0.1383, "name": "T1572"}, {"value": 0.1322, "name": "T1597"}, {"value": 0.1304, "name": "T1593"}, {"value": 0.1241, "name": "T1071"}, {"value": 0.062, "name": "T1594"}, {"value": 0.0615, "name": "T1592"}, {"value": 0.0579, "name": "T1591"}, {"value": 0.0573, "name": "T1589"}, {"value": 0.0561, "name": "T1566"}], "label": {"show": false}}, {"id": "state-5", "name": "state-5", "symbolSize": 36.7829, "isPie": true, "pieData": [{"value": 0.2505, "name": "T1566"}, {"value": 0.2196, "name": "T1598"}, {"value": 0.1876, "name": "T1110"}, {"value": 0.1866, "name": "T1589"}, {"value": 0.1557, "name": "T1591"}], "label": {"show": false}}, {"id": "state-6", "name": "state-6", "symbolSize": 94.4166, "isPie": true, "pieData": [{"value": 0.1945, "name": "T1656"}, {"value": 0.1839, "name": "T1598"}, {"value": 0.1716, "name": "T1597"}, {"value": 0.1689, "name": "T1591"}, {"value": 0.1497, "name": "T1110"}, {"value": 0.0706, "name": "T1589"}, {"value": 0.0608, "name": "T1566"}], "label": {"show": false}}, {"id": "state-8", "name": "state-8", "symbolSize": 55.6911, "isPie": true, "pieData": [{"value": 0.3792, "name": "T1595"}, {"value": 0.1843, "name": "T1594"}, {"value": 0.1546, "name": "T1593"}, {"value": 0.144, "name": "T1071"}, {"value": 0.138, "name": "T1592"}], "label": {"show": false}}, {"id": "state-9", "name": "state-9", "symbolSize": 119.3665, "isPie": true, "pieData": [{"value": 0.1589, "name": "T1595"}, {"value": 0.1416, "name": "T1656"}, {"value": 0.1402, "name": "T1597"}, {"value": 0.1385, "name": "T1594"}, {"value": 0.1382, "name": "T1593"}, {"value": 0.0612, "name": "T1598"}, {"value": 0.0601, "name": "T1591"}, {"value": 0.0566, "name": "T1592"}, {"value": 0.0529, "name": "T1572"}, {"value": 0.0518, "name": "T1590"}], "label": {"show": false}}, {"id": "state-12", "name": "state-12", "symbolSize": 41.8386, "isPie": true, "pieData": [{"value": 0.2481, "name": "T1589"}, {"value": 0.2144, "name": "T1566"}, {"value": 0.1884, "name": "T1591"}, {"value": 0.1878, "name": "T1593"}, {"value": 0.1613, "name": "T1110"}], "label": {"show": false}}, {"id": "state-16", "name": "state-16", "symbolSize": 124.1704, "isPie": true, "pieData": [{"value": 0.2193, "name": "T1597"}, {"value": 0.1926, "name": "T1598"}, {"value": 0.1648, "name": "T1656"}, {"value": 0.143, "name": "T1594"}, {"value": 0.1308, "name": "T1595"}, {"value": 0.0541, "name": "T1592"}, {"value": 0.0524, "name": "T1593"}, {"value": 0.043, "name": "T1566"}], "label": {"show": false}}, {"id": "state-17", "name": "state-17", "symbolSize": 180.0, "isPie": true, "pieData": [{"value": 0.1955, "name": "T1110"}, {"value": 0.1711, "name": "T1566"}, {"value": 0.1385, "name": "T1585"}, {"value": 0.1301, "name": "T1590"}, {"value": 0.1249, "name": "T1589"}, {"value": 0.0558, "name": "T1591"}, {"value": 0.0523, "name": "T1595"}, {"value": 0.0463, "name": "T1592"}, {"value": 0.0456, "name": "T1593"}, {"value": 0.04, "name": "T1594"}], "label": {"show": false}}, {"id": "state-22", "name": "state-22", "symbolSize": 40.7757, "isPie": true, "pieData": [{"value": 0.2291, "name": "T1566"}, {"value": 0.2161, "name": "T1597"}, {"value": 0.2135, "name": "T1110"}, {"value": 0.1934, "name": "T1598"}, {"value": 0.148, "name": "T1585"}], "label": {"show": false}}, {"id": "state-23", "name": "state-23", "symbolSize": 41.4121, "isPie": true, "pieData": [{"value": 0.2629, "name": "T1110"}, {"value": 0.2102, "name": "T1585"}, {"value": 0.1881, "name": "T1589"}, {"value": 0.1697, "name": "T1590"}, {"value": 0.1691, "name": "T1566"}], "label": {"show": false}}], "edges": [{"source": "state-12", "target": "TA505", "lineStyle": {"opacity": 0.1488}, "score": 0.0111, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-5", "target": "TA505", "lineStyle": {"opacity": 0.1488}, "score": 0.0111, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-1", "target": "TA505", "lineStyle": {"opacity": 0.1461}, "score": 0.0109, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-6", "target": "TA505", "lineStyle": {"opacity": 0.1287}, "score": 0.0096, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-17", "target": "TA505", "lineStyle": {"opacity": 0.1059}, "score": 0.0079, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-16", "target": "TA505", "lineStyle": {"opacity": 0.0469}, "score": 0.0035, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-4", "target": "TA505", "lineStyle": {"opacity": 0.0415}, "score": 0.0031, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-22", "target": "TA505", "lineStyle": {"opacity": 0.0362}, "score": 0.0027, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-9", "target": "TA505", "lineStyle": {"opacity": 0.0348}, "score": 0.0026, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-23", "target": "TA505", "lineStyle": {"opacity": 0.0348}, "score": 0.0026, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-1", "target": "TwoForOne", "lineStyle": {"opacity": 0.1426}, "score": 0.0102, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-17", "target": "TwoForOne", "lineStyle": {"opacity": 0.1189}, "score": 0.0085, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-12", "target": "TwoForOne", "lineStyle": {"opacity": 0.1147}, "score": 0.0082, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-5", "target": "TwoForOne", "lineStyle": {"opacity": 0.1133}, "score": 0.0081, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-4", "target": "TwoForOne", "lineStyle": {"opacity": 0.1133}, "score": 0.0081, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-16", "target": "TwoForOne", "lineStyle": {"opacity": 0.0559}, "score": 0.004, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-6", "target": "TwoForOne", "lineStyle": {"opacity": 0.0545}, "score": 0.0039, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-9", "target": "TwoForOne", "lineStyle": {"opacity": 0.0517}, "score": 0.0037, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-8", "target": "TwoForOne", "lineStyle": {"opacity": 0.0434}, "score": 0.0031, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-22", "target": "TwoForOne", "lineStyle": {"opacity": 0.0434}, "score": 0.0031, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-1", "target": "APT1", "lineStyle": {"opacity": 0.6593}, "score": 0.2173, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-12", "target": "APT1", "lineStyle": {"opacity": 0.5534}, "score": 0.1824, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-17", "target": "APT1", "lineStyle": {"opacity": 0.5461}, "score": 0.18, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-6", "target": "APT1", "lineStyle": {"opacity": 0.5124}, "score": 0.1689, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-5", "target": "APT1", "lineStyle": {"opacity": 0.507}, "score": 0.1671, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-4", "target": "APT1", "lineStyle": {"opacity": 0.2333}, "score": 0.0769, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-16", "target": "APT1", "lineStyle": {"opacity": 0.2203}, "score": 0.0726, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-9", "target": "APT1", "lineStyle": {"opacity": 0.199}, "score": 0.0656, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-22", "target": "APT1", "lineStyle": {"opacity": 0.1596}, "score": 0.0526, "label": {"show": true, "formatter": "{@score}"}}, {"source": "state-8", "target": "APT1", "lineStyle": {"opacity": 0.1584}, "score": 0.0522, "label": {"show": true, "formatter": "{@score}"}}, {"source": "document", "target": "state-1", "edgeLabel": {"show": false}}, {"source": "document", "target": "state-4", "edgeLabel": {"show": false}}, {"source": "document", "target": "state-5", "edgeLabel": {"show": false}}, {"source": "document", "target": "state-6", "edgeLabel": {"show": false}}, {"source": "document", "target": "state-8", "edgeLabel": {"show": false}}, {"source": "document", "target": "state-9", "edgeLabel": {"show": false}}, {"source": "document", "target": "state-12", "edgeLabel": {"show": false}}, {"source": "document", "target": "state-16", "edgeLabel": {"show": false}}, {"source": "document", "target": "state-17", "edgeLabel": {"show": false}}, {"source": "document", "target": "state-22", "edgeLabel": {"show": false}}, {"source": "document", "target": "state-23", "edgeLabel": {"show": false}}]}'
+        )
+
+        const colors = ['#5470c6', '#91cc75', '#fac858', '#ee6666', '#73c0de', '#3ba272', '#fc8452', '#9a60b4', '#ea7ccc', "grey"]
+
+        // 使用 force 布局，让节点自动排列
+        const nodes = ttp_state_data["nodes"];
+
+        const links = ttp_state_data["edges"];
+
+        // 创建饼图纹理
+        function createPieTexture(nodeData) {
+            const padding = 50; // 外部标签的边距
+            const size = nodeData.symbolSize * 5 + padding * 2;
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const radius = nodeData.symbolSize * 2 - 5 > 5? nodeData.symbolSize * 2 - 5: 5;
+            const fontsize = parseInt(nodeData.symbolSize / 3);
+            
+            const total = nodeData.pieData.reduce((sum, item) => sum + item.value, 0);
+            let startAngle = -Math.PI / 2;
+            
+            // 先绘制所有扇区
+            nodeData.pieData.forEach((item, index) => {
+                const sliceAngle = (item.value / total) * 2 * Math.PI;
+                const endAngle = startAngle + sliceAngle;
+                
+                // 绘制扇区
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+                ctx.closePath();
+                ctx.fillStyle = colors[index % colors.length];
+                ctx.fill();
+                
+                startAngle = endAngle;
+            });
+            
+            // 重新计算角度绘制标签
+            startAngle = -Math.PI / 2;
+            nodeData.pieData.forEach((item, index) => {
+                const sliceAngle = (item.value / total) * 2 * Math.PI;
+                const midAngle = startAngle + sliceAngle / 2;
+                const percentage = (item.value / total * 100).toFixed(0);
+                
+                // 计算标签位置
+                let labelX, labelY, innerLabel;
+                
+                // 根据扇区大小决定标签显示在内部还是外部
+                if (percentage >= 40 && sliceAngle >= Math.PI / 2.5) {
+                    // 大扇区：显示在内部
+                    innerLabel = true;
+                    const labelRadius = radius * 0.5;
+                    labelX = centerX + Math.cos(midAngle) * labelRadius;
+                    labelY = centerY + Math.sin(midAngle) * labelRadius;
+                } else {
+                    // 小扇区：显示在外部
+                    innerLabel = false;
+                    const labelRadius = radius + 60;
+                    labelX = centerX + Math.cos(midAngle) * labelRadius;
+                    labelY = centerY + Math.sin(midAngle) * labelRadius;
+                }
+                
+                // 设置文字样式
+                ctx.save();
+                ctx.font = 'bold '+fontsize+'px Arial';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                
+                const labelText = `${item.name}\n${percentage}%`;
+                const lines = labelText.split('\n');
+                const lineHeight = fontsize + 3;
+                const totalHeight = lines.length * lineHeight;
+                
+                // 测量文字宽度
+                const maxLineWidth = Math.max(
+                    ctx.measureText(lines[0]).width,
+                    ctx.measureText(lines[1] || '').width
+                );
+                
+                // 绘制白色背景/边框（提高可读性）
+                ctx.fillStyle = 'white';
+                const textWidth = maxLineWidth + 6;
+                const bgHeight = totalHeight + 4;
+                
+                // 绘制黑色文字
+                ctx.fillStyle = 'black';
+                lines.forEach((line, i) => {
+                    ctx.fillText(line, labelX, labelY - totalHeight / 2 + lineHeight / 2 + i * lineHeight);
+                });
+                
+                ctx.restore();
+                
+                startAngle += sliceAngle;
+            });
+            
+            // 添加中心文字（节点名称）
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius * 0.3, 0, 2 * Math.PI);
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+            ctx.fill();
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            ctx.fillStyle = '#333';
+            ctx.font = 'bold '+fontsize+'px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(nodeData.name, centerX, centerY);
+            
+            return canvas.toDataURL('image/png');
+        }
+
+        // 为饼图节点生成纹理
+        const processedNodes = nodes.map(node => {
+            if (node.isPie) {
+                const pieImage = createPieTexture(node);
+                return {
+                    ...node,
+                    symbol: 'image://' + pieImage,
+                    itemStyle: {
+                        color: 'transparent'
+                    }
+                };
+            }
+            return {
+                ...node,
+                // symbol: 'circle',
+                label: {
+                    show: true,
+                    position: 'bottom',
+                    fontSize: 12,
+                    color: '#333'
+                }
+            };
+        });
+
+        const option = {
+            tooltip: {
+                trigger: 'item',
+                formatter: function (params) {
+                    if (params.data.isPie) {
+                        let html = `<strong>${params.data.name}</strong><br/>`;
+                        params.data.pieData.forEach(item => {
+                            html += `${item.name}: ${item.value}%<br/>`;
+                        });
+                        return html;
+                    }
+                    return params.data.name;
+                }
+            },
+            series: [
+                {
+                    type: 'graph',
+                    layout: 'force',
+                    force: {
+                        repulsion: 300,
+                        edgeLength: 200,
+                        gravity: 0.1
+                    },
+                    data: processedNodes,
+                    links: links,
+                    lineStyle: {
+                        color: '#999',
+                        width: 2,
+                        curveness: 0.1
+                    },
+                    edgeSymbol: ['none', 'arrow'],
+                    edgeSymbolSize: [0, 8],
+                    roam: true,
+                    draggable: true,
+                    label: {
+                        show: true,
+                        position: 'bottom',
+                        fontSize: 12,
+                        color: '#333',
+                        fontWeight: 'bold'
+                    },
+                    // edgeLabel: {
+                    //     show: true, // 显示连线标签
+                    //     position: 'middle', // 居中显示
+                    //     // formatter: params => params.data.score, // 显示连接值
+                    //     fontSize: 10,
+                    //     color: '#333'
+                    // },
+                    emphasis: {
+                        scale: 1.2,
+                        label: {
+                            show: true
+                        }
+                    }
+                }
+            ]
+        };
+
+        chart.setOption(option);
+
+        window.addEventListener('resize', () => {
+            chart.resize();
+        });
+
+        chart.on('click', function (params) {
+            if (params.data && params.data.isPie) {
+                console.log('饼图节点:', params.data.name);
+                console.log('数据分布:', params.data.pieData);
+            }
+        });
+    </script>
+</body>
+
+</html>
