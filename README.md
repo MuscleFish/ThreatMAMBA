@@ -12,5 +12,5 @@ In this library, we will provide the datasets we used.
 - CTI2Attacker_TTP: extract all TTPs in cleaned_CTI2Attacker
 - TTP_Group_Contribution: the importance of TTPs in identifying Attackers extracted by ThreatMAMBA
 - CTI2Attacker_TTP_GroupState: the group behavior patterns extracted by ThreatMAMBA.
--- You can edit the `pie-node-ttp-state-graph.temp.html` and replace `ttp_state_data` with the values from `CTI2Attacker_TTP_GroupState`'s column `group_state_ttp`
--- Some CTIs with less than 2 TTPs don't have their `group_state_ttp`
+ - You can edit the `pie-node-ttp-state-graph.temp.html` and replace `ttp_state_data` with the values from `CTI2Attacker_TTP_GroupState`'s column `group_state_ttp`
+ - Some CTIs with less than 2 TTPs don't have their `group_state_ttp`
